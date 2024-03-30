@@ -14,14 +14,21 @@ export class BasePage{
         this.page = page;
     }
 
+    MenuOptions = {
+        AllItems: "All Items",
+        About: "About",
+        Logout: "Logout",
+        ResetAllState: "Reset All State"
+    }
+
     MenuLocators = {
-        OpenMenuLocator: '//button[@id="react-burger-menu-btn"]',
+        OpenMenuLocator: 'button#react-burger-menu-btn',
         MenuOptionLocator: '//a[@class="bm-item menu-item"]',
-        CloseMenuButton: '//button[@id="react-burger-cross-btn"]',
+        CloseMenuButton: 'button#react-burger-cross-btn',
         ParentOptionLocator: '//nav[@class="bm-item-list"]',
     }
 
-    Cart = '//a[@class="shopping_cart_link"]';
+    Cart = 'a.shopping_cart_link';
 
     async openMenu() {
         await this.page.locator(this.MenuLocators.OpenMenuLocator).click();
@@ -36,9 +43,18 @@ export class BasePage{
     }
 
     async goToMenu(menuOption: string) {
-        let option = (await this.page.$$(this.MenuLocators.MenuOptionLocator))
-                    .find(async option => await option.textContent() === menuOption);
-        await option?.click();
+        //let option = (await this.page.$$(this.MenuLocators.MenuOptionLocator))
+        //            .find(async option => await option.innerText() === menuOption);
+        let options = await this.page.locator(this.MenuLocators.MenuOptionLocator).all();
+        for(let option of options){
+            console.log('navigation option inner text is ' + option.innerText());
+            console.log('navigation option text content is ' + option.textContent());
+
+            if((await option.innerText()) === menuOption){
+                await option.click();
+                break;
+            }
+        }
     }
 
     async readProductObjectsFromJson() {

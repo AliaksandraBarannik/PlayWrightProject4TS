@@ -8,14 +8,14 @@ export class CheckoutPage extends BasePage{
     }
     
     Information = {
-        FirstName: this.page.locator('//input[@id="first-name"]'),
-        LastName: this.page.locator('//input[@id="last-name"]'),
-        PostalCode: this.page.locator('//input[@id="postal-code"]'),
+        FirstName: this.page.getByPlaceholder('First Name'),
+        LastName: this.page.getByPlaceholder('Last Name'),
+        PostalCode: this.page.getByPlaceholder('Zip/Postal Code'),
     }
 
     Buttons = {
-        ContinueButton: this.page.locator('//input[@id="continue"]'),
-        CancelButton: this.page.locator('//button[@id="cancel"]'),
+        ContinueButton: this.page.getByRole('button', {name:'continue'}),
+        CancelButton: this.page.getByRole('button', {name: 'cancel'}),
     }
 
     async fillBuyerInformation(testCaseId: string) {

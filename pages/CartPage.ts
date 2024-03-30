@@ -7,17 +7,19 @@ export class CartPage extends BasePage{
         super(page)    
     }
 
+    ProductMainLocator = this.page.locator('//div[@class="cart_item"]');
+
     Product = {
-        DeleteFromBasketButton: this.page.locator('//button[@id="remove-sauce-labs-backpack"]'),
-        Price: this.page.locator('//div[@class="inventory_item_price"]'),
-        Name: this.page.locator('//div[@class="inventory_item_name"]'),
-        Description: this.page.locator('//div[@class="inventory_item_desc"]'),
-        CardQuantity: this.page.locator('//div[@class="cart_quantity"]'),
+        DeleteFromBasketButton: this.page.getByRole('button'),
+        Price: this.page.getByTestId('inventory-item-price'),
+        Name: this.page.getByTestId('inventory-item-name'),
+        Description: this.page.getByTestId('inventory-item-desc'),
+        CardQuantity: this.page.getByTestId('item-quantity'),
     }
 
     Buttons = {
-        CheckoutButton: this.page.locator('//button[@id="checkout"]'),
-        ContinueShoppingBtn: this.page.locator('//button[@id="continue-shopping"]')
+        CheckoutButton: this.page.getByText('Checkout'),
+        ContinueShoppingBtn: this.page.getByRole('button', {name: 'continue-shopping'}),
     }
 
     async continueShopping(){
@@ -44,5 +46,20 @@ export class CartPage extends BasePage{
             products.push(product);
         }
         return products;
+    }
+
+    async removeProductFromCart(productName: string){
+        const product = this.ProductMainLocator.filter(
+            {
+                hasText: productName,
+            },
+        );
+
+        await product.getByRole('button').click();
+    }
+
+    async isCartEmpty(){
+        const productCount = await this.ProductMainLocator.count();
+        return productCount > 0;
     }
 }

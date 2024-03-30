@@ -28,6 +28,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    /*By default, page.getByTestId() will locate elements based on the data-testid attribute, but you can configure it in your test config*/
+    testIdAttribute: 'data-test',
   },
 
   projects: [

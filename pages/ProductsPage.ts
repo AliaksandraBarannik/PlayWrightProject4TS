@@ -14,14 +14,14 @@ export class ProductsPage extends BasePage{
         PriceHightToLow: 'Price (high to low)',
     }
 
-    Filter = this.page.locator('//select[@class="product_sort_container"]');
+    Filter = this.page.locator('select.product_sort_container');
 
     Product = {
         AddToCardButton: this.page.locator('//button[contains(@id,"add-to-cart")]'),
-        Price: this.page.locator('//div[@class="inventory_item_price"]'),
+        Price: this.page.locator('div.inventory_item_price'),
         Name: this.page.locator('//div[@class="inventory_item_name "]'),
-        Description: this.page.locator('//div[@class="inventory_item_desc"]'),
-        Image: this.page.locator('//img[@class="inventory_item_img"]'),
+        Description: this.page.locator('div.inventory_item_desc'),
+        Image: this.page.locator('img.inventory_item_img'),
     }
 
     async filterBy(option: string) {

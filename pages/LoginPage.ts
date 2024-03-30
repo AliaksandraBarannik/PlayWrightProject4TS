@@ -8,10 +8,10 @@ export class LoginPage extends BasePage{
     }
 
     Elements = {
-        UserName: this.page.locator('//input[@id="user-name"]'),
-        Password: this.page.locator('//input[@id="password"]'),
-        LoginButton: this.page.locator('//input[@id="login-button"]'),
-        Logo: this.page.locator('//div[@class="login_logo"]'),
+        UserName: this.page.getByPlaceholder('Username'),
+        Password: this.page.getByPlaceholder('Password'),
+        LoginButton: this.page.locator('input#login-button'),
+        Logo: this.page.locator('div.login_logo'),
     };
 
     async login(userName: string, password: string){
