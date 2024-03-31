@@ -4,6 +4,7 @@ import { CartPage } from './CartPage'
 import {CheckoutPage} from '../pages/CheckoutPage'
 import { ProductsPage } from '../pages/ProductsPage'
 import { SoucelabsAboutPage } from "./SoucelabsAboutPage";
+import { CheckoutOverviewPage } from "./CheckoutOverviewPage";
 
 export class PageManager{
     page: Page;
@@ -12,6 +13,7 @@ export class PageManager{
     checkoutPage;
     productsPage;
     soucelabsAboutPage;
+    checkoutOverviewPage;
 
     constructor(page){
         this.page = page;
@@ -20,5 +22,6 @@ export class PageManager{
         this.checkoutPage = new CheckoutPage(page);
         this.productsPage = new ProductsPage(page);
         this.soucelabsAboutPage = new SoucelabsAboutPage(page);
+        this.checkoutOverviewPage = new CheckoutOverviewPage(page);
     }
 }

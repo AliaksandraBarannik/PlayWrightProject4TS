@@ -43,13 +43,8 @@ export class BasePage{
     }
 
     async goToMenu(menuOption: string) {
-        //let option = (await this.page.$$(this.MenuLocators.MenuOptionLocator))
-        //            .find(async option => await option.innerText() === menuOption);
         let options = await this.page.locator(this.MenuLocators.MenuOptionLocator).all();
         for(let option of options){
-            console.log('navigation option inner text is ' + option.innerText());
-            console.log('navigation option text content is ' + option.textContent());
-
             if((await option.innerText()) === menuOption){
                 await option.click();
                 break;

@@ -7,6 +7,8 @@ export class CheckoutPage extends BasePage{
         super(page);
     }
     
+    ErrorMessage = this.page.getByTestId('error');
+
     Information = {
         FirstName: this.page.getByPlaceholder('First Name'),
         LastName: this.page.getByPlaceholder('Last Name'),
@@ -38,5 +40,13 @@ export class CheckoutPage extends BasePage{
 
     async clickCancel(){
         await this.Buttons.CancelButton.click();
+    }
+
+    async isErrorDisplayed(){
+        return await this.ErrorMessage.isVisible();
+    }
+
+    async getErrorText(){
+        return await this.ErrorMessage.innerText();
     }
 }

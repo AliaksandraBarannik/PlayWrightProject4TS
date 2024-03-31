@@ -1,20 +1,13 @@
 export class BuyerObj{
-    firstName: string;
-    lastname: string;
-    postalCode: string;
 
-    constructor(firstName: string, lastName: string, postalCode: string){
-        this.firstName = firstName;
-        this.lastname = lastName;
-        this.postalCode = postalCode;
-    }
+    constructor(private firstName: string, private lastName: string, private postalCode: string){ }
 
     async getFirstName(){
         return this.firstName;
     }
 
     async getLastName(){
-        return this.lastname;
+        return this.lastName;
     }
 
     async getPostalCode(){

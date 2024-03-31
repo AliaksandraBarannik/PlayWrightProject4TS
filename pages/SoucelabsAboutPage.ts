@@ -5,7 +5,7 @@ export class SoucelabsAboutPage extends BasePage{
         super(page);
     }
 
-    Navigation = {
+     Navigation = {
         Products: "Products",
         Solutions: "Solutions",
         Pricing: "Pricing",

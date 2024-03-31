@@ -7,10 +7,16 @@ dotenv.config();
 
 const productName = 'Sauce Labs Fleece Jacket';
 const testCaseId = 'TC_01';
-
+const shippingInformation = 'Free Pony Express Delivery!';
+const basePrice = '49.99';
+const tax = '4.00';
+const totalPrice = '53.99';
 test.afterEach(async ({page})=>{
     await page.close();
 });
+
+test.describe.configure({mode: 'serial'});
+
 
 test('Buy smth', async ({ pageManager }) => {
     const filterOptions: [] = await pageManager.productsPage.getAllFilterOptions();
@@ -98,7 +104,19 @@ test('Check filtering option NameZA', async({ pageManager})=>{
     let actualProductNames: string[] = actualProducts.map(product=>product.name).sort().reverse();
     let expectedProducts:ProductObj[] = await pageManager.productsPage.readProductObjectsFromJson();
     let expectedProductNames: string[] = expectedProducts.map(product=>product.name).sort().reverse();
-    console.log(actualProductNames);
-    console.log(expectedProductNames);
     expect(actualProductNames, 'Products should be sorted by name(Z to A)').toEqual(expectedProductNames);
 })
+
+test('Verify information error message and overview page', async ({ pageManager }) => {
+    await pageManager.productsPage.addProductToCart(productName);
+    await pageManager.productsPage.goToCart();
+    await pageManager.cartPage.checkout();
+    await pageManager.checkoutPage.continue();
+    expect(pageManager.checkoutPage.isErrorDisplayed()).toBeTruthy();
+    await pageManager.checkoutPage.fillBuyerInformation(testCaseId);
+    await pageManager.checkoutPage.continue();
+    expect(await pageManager.checkoutOverviewPage.getShippingInformation()).toEqual(shippingInformation);
+    expect(await pageManager.checkoutOverviewPage.getPrice()).toEqual(basePrice);
+    expect(await pageManager.checkoutOverviewPage.getTax()).toEqual(tax);
+    expect(await pageManager.checkoutOverviewPage.getTotalPrice()).toEqual(totalPrice);
+});
